@@ -6,14 +6,18 @@ import styled from 'styled-components'
 
 const Display = styled.div`
   display: grid;
-
-`
-
-const Keypad = styled.div`
+  `
+  
+  const Keypad = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 120px);
+  grid-template-columns: repeat(3, 80px);
   grid-gap: 10px;
   justify-content: center;
+  padding: 2%;
+  
+  button {
+    height: 60px;
+  }
 `
 
 export default class IndexPage extends Component {
@@ -23,8 +27,8 @@ export default class IndexPage extends Component {
     this.state = {
       amount: 0,
       operator: '',
-      display: '',
-      answer: []
+      answer: [],
+      display: 123,
     }
     this.handleClear = this.handleClear.bind(this)
     this.handleKeyPad = this.handleKeyPad.bind(this)
@@ -34,14 +38,14 @@ export default class IndexPage extends Component {
     this.setState({
       amount: 0,
       operator: '',
-
+      display: ''
     })
   }
 
   handleKeyPad = (e) => {
     this.setState({
-      amount: parseFloat(this.state.amount += e.target.value, 10),
-
+      amount:  parseFloat(this.state.amount += e.target.value, 10),
+      display: this.state.amount
     })
   }
 
@@ -55,7 +59,7 @@ export default class IndexPage extends Component {
 
   handleDecimal = (e) => {
     this.setState({
-      // amount: this.state.amount.concat('.')
+      amount: `${this.state.amount}.`
     })
   }
   
