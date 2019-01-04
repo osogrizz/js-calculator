@@ -2,6 +2,19 @@ import React, { Component } from 'react'
 import Layout from '../components/layout'
 // import Image from '../components/image'
 import SEO from '../components/seo'
+import styled from 'styled-components'
+
+const Display = styled.div`
+  display: grid;
+
+`
+
+const Keypad = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 120px);
+  grid-gap: 10px;
+  justify-content: center;
+`
 
 export default class IndexPage extends Component {
   constructor(props) {
@@ -9,8 +22,9 @@ export default class IndexPage extends Component {
 
     this.state = {
       amount: 0,
-
-      perator: ''
+      operator: '',
+      display: '',
+      answer: []
     }
     this.handleClear = this.handleClear.bind(this)
     this.handleKeyPad = this.handleKeyPad.bind(this)
@@ -19,19 +33,22 @@ export default class IndexPage extends Component {
   handleClear = (e) => {
     this.setState({
       amount: 0,
-      operator: ''
+      operator: '',
+
     })
   }
 
   handleKeyPad = (e) => {
     this.setState({
-      amount: parseFloat(this.state.amount += e.target.value, 10)
+      amount: parseFloat(this.state.amount += e.target.value, 10),
+
     })
   }
 
   handleMath = (e) => {
     this.setState({
-      operator: e.target.value
+      operator: e.target.value,
+
     })
 
   }
@@ -43,21 +60,19 @@ export default class IndexPage extends Component {
   }
   
 
+
   render() {
     return (
       <Layout>
-        <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+        <SEO title="Home" keywords={[`freecodecamp`, `application`, `calculator`]} />
           <div>
 
+            <div style={{color: 'orange'}}>{this.state.display}</div>
             <div id="display" style={{color: '#fff'}}>
             {this.state.amount}
-            {this.state.operator}
             </div>
 
-            <div>
-              <button id="clear" onClick={this.handleClear} value={this.state.amount}>AC</button>
-
-              <button id="zero" value="0" onClick={this.handleKeyPad}>0</button>
+            <Keypad>
               <button id="one" value="1" onClick={this.handleKeyPad}>1</button>
               <button id="two" value="2" onClick={this.handleKeyPad}>2</button>
               <button id="three" value="3" onClick={this.handleKeyPad}>3</button>
@@ -67,8 +82,10 @@ export default class IndexPage extends Component {
               <button id="seven" value="7" onClick={this.handleKeyPad}>7</button>
               <button id="eight" value="8" onClick={this.handleKeyPad}>8</button>
               <button id="nine"  value="9" onClick={this.handleKeyPad}>9</button>
+              <button id="zero" value="0" onClick={this.handleKeyPad}>0</button>
               <button id="decimal" value="." onClick={this.handleDecimal}>.</button>
-            </div>
+              <button id="clear" onClick={this.handleClear} value={this.state.amount}>AC</button>
+            </Keypad>
 
             <div>
               <button id="add" value="+" onClick={this.handleMath} >+</button>
