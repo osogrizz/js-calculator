@@ -4,6 +4,21 @@ import Layout from '../components/layout'
 import SEO from '../components/seo'
 
 export default class IndexPage extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      amount: 0,
+    }
+    this.handleClear = this.handleClear.bind(this)
+  }
+  handleClear = (e) => {
+    this.setState({
+      amount: 0
+    })
+  }
+  
+
   render() {
     return (
       <Layout>
@@ -11,9 +26,11 @@ export default class IndexPage extends Component {
           <div>
             <h1>JS Calculator</h1>
             <div id="display">
+            {this.state.amount}
             </div>
             <div>
-              <button id="clear">AC</button>
+              <button id="clear" onClick={this.handleClear} value={this.state.amount}>AC</button>
+
               <button id="zero">0</button>
               <button id="one">1</button>
               <button id="two">2</button>
