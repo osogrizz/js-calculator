@@ -10,6 +10,7 @@ const IndexPage = () => (
     <div>
       <h1>JS Calculator</h1>
       <div>
+        <button id="clear">AC</button>
         <button id="zero">0</button>
         <button id="one">1</button>
         <button id="two">2</button>
@@ -20,12 +21,13 @@ const IndexPage = () => (
         <button id="seven">7</button>
         <button id="eight">8</button>
         <button id="nine">9</button>
+        <button id="decimal">.</button>
       </div>
       <div>
-        <button id="add"></button>
-        <button id="subtract"></button>
-        <button id="multiply"></button>
-        <button id="divide"></button>
+        <button id="add">+</button>
+        <button id="subtract">-</button>
+        <button id="multiply">x</button>
+        <button id="divide">%</button>
       </div>
       <div id="equals">
         <button type="button">=</button>
