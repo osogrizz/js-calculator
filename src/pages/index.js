@@ -8,20 +8,37 @@ export default class IndexPage extends Component {
     super(props)
 
     this.state = {
-      amount: 0
+      amount: 0,
 
+      perator: ''
     }
     this.handleClear = this.handleClear.bind(this)
+    this.handleKeyPad = this.handleKeyPad.bind(this)
+    this.handleMath = this.handleMath.bind(this)
   }
   handleClear = (e) => {
     this.setState({
-      amount: 0
+      amount: 0,
+      operator: ''
     })
   }
 
   handleKeyPad = (e) => {
     this.setState({
-      amount: parseInt(this.state.amount += e.target.value, 10)
+      amount: parseFloat(this.state.amount += e.target.value, 10)
+    })
+  }
+
+  handleMath = (e) => {
+    this.setState({
+      operator: e.target.value
+    })
+
+  }
+
+  handleDecimal = (e) => {
+    this.setState({
+      // amount: this.state.amount.concat('.')
     })
   }
   
@@ -31,9 +48,10 @@ export default class IndexPage extends Component {
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
           <div>
-            <h1>JS Calculator</h1>
-            <div id="display">
+
+            <div id="display" style={{color: '#fff'}}>
             {this.state.amount}
+            {this.state.operator}
             </div>
 
             <div>
@@ -49,18 +67,18 @@ export default class IndexPage extends Component {
               <button id="seven" value="7" onClick={this.handleKeyPad}>7</button>
               <button id="eight" value="8" onClick={this.handleKeyPad}>8</button>
               <button id="nine"  value="9" onClick={this.handleKeyPad}>9</button>
-              <button id="decimal" value="." onClick={this.handleKeyPad}>.</button>
+              <button id="decimal" value="." onClick={this.handleDecimal}>.</button>
             </div>
 
             <div>
-              <button id="add">+</button>
-              <button id="subtract">-</button>
-              <button id="multiply">x</button>
-              <button id="divide">%</button>
+              <button id="add" value="+" onClick={this.handleMath} >+</button>
+              <button id="subtract" value="-" onClick={this.handleMath} >-</button>
+              <button id="multiply" value="x" onClick={this.handleMath} >x</button>
+              <button id="divide" value="%" onClick={this.handleMath} >%</button>
             </div>
 
             <div id="equals">
-              <button type="button">=</button>
+              <button type="button" onClick={this.doMath}>=</button>
             </div>
           </div>
       </Layout>

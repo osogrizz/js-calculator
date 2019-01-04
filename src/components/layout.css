@@ -1,5 +1,5 @@
 html {
-  font-family: sans-serif;
+  font-family: 'AndaleMono', monospace;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -186,6 +186,8 @@ html {
   font: 112.5%/1.45em georgia, serif;
   box-sizing: border-box;
   overflow-y: scroll;
+  background-color: #222;
+
 }
 * {
   box-sizing: inherit;
@@ -198,7 +200,7 @@ html {
 }
 body {
   color: hsla(0, 0%, 0%, 0.8);
-  font-family: georgia, serif;
+  font-family: 'AndaleMono', monospace;
   font-weight: normal;
   word-wrap: break-word;
   font-kerning: normal;
@@ -228,8 +230,7 @@ h1 {
   padding-top: 0;
   margin-bottom: 1.45rem;
   color: inherit;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'AndaleMono', monospace;
   font-weight: bold;
   text-rendering: optimizeLegibility;
   font-size: 2.25rem;
