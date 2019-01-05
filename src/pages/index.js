@@ -4,9 +4,6 @@ import Layout from '../components/layout'
 import SEO from '../components/seo'
 import styled from 'styled-components'
 
-const Display = styled.div`
-  display: grid;
-  `
   
   const Keypad = styled.div`
   display: grid;
@@ -46,7 +43,6 @@ export default class IndexPage extends Component {
       amount: parseFloat(0, 10),
       operator: '',
       answer: [],
-      // display: 0,
     }
     
   }
@@ -54,31 +50,43 @@ export default class IndexPage extends Component {
     this.setState({
       amount: 0,
       operator: '',
-      // display: ''
+      answer: this.state.answer = []
     })
   }
 
   handleKeyPad = (e) => {
-    // if 
+
     this.setState({
       amount:  parseFloat(this.state.amount += e.target.value, 10),
-      // display: parseFloat(this.state.amount, 10)
+
     })
   }
 
-  handleMath = (e) => {
+  handleMath = (e, previousState) => {
+    console.log(this.state.amount)
+    let tally = this.state.answer.push(this.state.amount)
+    this.setState({
+      answer: [],
+      amount: 0
+    })
     console.log(e.target.value)
-
+    console.log(this.state.answer)
+    console.log(this.state.tally)
   }
 
-  handleDecimal = () => {
+  handleDecimal = (e) => {
     this.setState({
       amount: `${this.state.amount}.`
     })
   }
   
   doMath = (e) => {
+    this.setState({
+      // answer: this.state.answer.push(e.target.amount),
+      amount: 0
+    })
     console.log('Calculating!!!')
+    
   }
 
 
