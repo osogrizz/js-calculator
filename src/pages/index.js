@@ -113,7 +113,7 @@ export default class IndexPage extends Component {
               <button id="zero" value="0" onClick={this.handleKeyPad}>0</button>
               <button id="decimal" onClick={this.handleDecimal} data-action="decimal" >.</button>
               <button id="clear" onClick={this.handleClear} data-action="clear" >AC</button>
-              <button id="divide" value="%" onClick={this.handleMath} data-action="divide" >÷</button>
+              <button id="divide" value="÷" onClick={this.handleMath} data-action="divide" >÷</button>
             </Keypad>
 
             <Equal id="equals">
