@@ -25,14 +25,15 @@ export default class IndexPage extends Component {
     super(props)
 
     this.state = {
-      amount: 0,
+      amount: parseFloat(0, 10),
       operator: '',
       answer: [],
-      display: 123,
+      display: 0,
     }
     this.handleClear = this.handleClear.bind(this)
     this.handleKeyPad = this.handleKeyPad.bind(this)
     this.handleMath = this.handleMath.bind(this)
+    this.handleDecimal = this.handleDecimal.bind(this)
   }
   handleClear = (e) => {
     this.setState({
@@ -45,7 +46,7 @@ export default class IndexPage extends Component {
   handleKeyPad = (e) => {
     this.setState({
       amount:  parseFloat(this.state.amount += e.target.value, 10),
-      display: this.state.amount
+      display: parseFloat(this.state.amount, 10)
     })
   }
 
@@ -57,7 +58,7 @@ export default class IndexPage extends Component {
 
   }
 
-  handleDecimal = (e) => {
+  handleDecimal = () => {
     this.setState({
       amount: `${this.state.amount}.`
     })
