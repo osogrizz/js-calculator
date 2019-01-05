@@ -80,14 +80,13 @@ export default class IndexPage extends Component {
   }
   
   handleDecimal = (e) => {
-    console.log('Add me .')
     this.setState({
       dec: true
     })
 
     if (this.state.dec == false) {
       this.setState({
-        amount: this.state.amount + '.'
+        amount: this.state.amount + e.target.value
       })
     }
   }
@@ -130,7 +129,7 @@ export default class IndexPage extends Component {
 
 
               <button id="zero" value="0" onClick={this.handleKeyPad}>0</button>
-              <button id="decimal" onClick={this.handleDecimal} data-action="decimal" >.</button>
+              <button id="decimal" value="." onClick={this.handleDecimal} data-action="decimal" >.</button>
               <button id="clear" onClick={this.handleClear} data-action="clear" >AC</button>
               <button id="divide" value="÷" onClick={this.handleOpKey} data-action="divide" >÷</button>
             </Keypad>
