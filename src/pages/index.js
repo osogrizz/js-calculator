@@ -40,9 +40,11 @@ export default class IndexPage extends Component {
     super(props)
 
     this.state = {
-      amount: parseFloat(0, 10),
+      amount: 0,
+      numZero: false,
       operator: '',
       answer: [],
+      dec: false
     }
     
   }
@@ -50,43 +52,52 @@ export default class IndexPage extends Component {
     this.setState({
       amount: 0,
       operator: '',
-      answer: this.state.answer = []
+      dec: false
+      // answer: this.state.answer = []
     })
   }
 
   handleKeyPad = (e) => {
-
     this.setState({
-      amount:  parseFloat(this.state.amount += e.target.value, 10),
-
+      amount: this.state.amount += e.target.value,
+      amount: this.state.amount.replace(/0?/,'') 
     })
+    
+    
   }
 
-  handleMath = (e, previousState) => {
+  handleOpKey = (e, previousState) => {
     console.log(this.state.amount)
     let tally = this.state.answer.push(this.state.amount)
     this.setState({
       answer: [],
-      amount: 0
+      amount: 0,
+      dec: false
     })
     console.log(e.target.value)
     console.log(this.state.answer)
-    console.log(this.state.tally)
+    console.log('Your tally is:', tally)
   }
-
+  
   handleDecimal = (e) => {
+    console.log('Add me .')
     this.setState({
-      amount: `${this.state.amount}.`
+      dec: true
     })
+
+    if (this.state.dec == false) {
+      this.setState({
+        amount: this.state.amount + '.'
+      })
+    }
   }
   
   doMath = (e) => {
     this.setState({
       // answer: this.state.answer.push(e.target.amount),
-      amount: 0
+      // amount: 0
     })
     console.log('Calculating!!!')
-    
   }
 
 
@@ -104,24 +115,24 @@ export default class IndexPage extends Component {
               <button id="one" value="1" onClick={this.handleKeyPad}>1</button>
               <button id="two" value="2" onClick={this.handleKeyPad}>2</button>
               <button id="three" value="3" onClick={this.handleKeyPad}>3</button>
-              <button id="add" value="+" onClick={this.handleMath} data-action="add" >+</button>
+              <button id="add" value="+" onClick={this.handleOpKey} data-action="add" >+</button>
 
               <button id="four" value="4" onClick={this.handleKeyPad}>4</button>
               <button id="five" value="5" onClick={this.handleKeyPad}>5</button>
               <button id="six" value="6" onClick={this.handleKeyPad}>6</button>
-              <button id="subtract" value="-" onClick={this.handleMath} data-action="subtract" >-</button>
+              <button id="subtract" value="-" onClick={this.handleOpKey} data-action="subtract" >-</button>
 
 
               <button id="seven" value="7" onClick={this.handleKeyPad}>7</button>
               <button id="eight" value="8" onClick={this.handleKeyPad}>8</button>
               <button id="nine"  value="9" onClick={this.handleKeyPad}>9</button>
-              <button id="multiply" value="x" onClick={this.handleMath} data-action="multiply" >x</button>
+              <button id="multiply" value="x" onClick={this.handleOpKey} data-action="multiply" >x</button>
 
 
               <button id="zero" value="0" onClick={this.handleKeyPad}>0</button>
               <button id="decimal" onClick={this.handleDecimal} data-action="decimal" >.</button>
               <button id="clear" onClick={this.handleClear} data-action="clear" >AC</button>
-              <button id="divide" value="÷" onClick={this.handleMath} data-action="divide" >÷</button>
+              <button id="divide" value="÷" onClick={this.handleOpKey} data-action="divide" >÷</button>
             </Keypad>
 
             <Equal id="equals">
