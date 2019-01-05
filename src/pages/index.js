@@ -149,7 +149,7 @@ export default class IndexPage extends Component {
               <LastRow>
                 <NumBtn id="zero" value="0" onClick={this.handleKeyPad}>0</NumBtn>
                 <NumBtn id="decimal" value="." onClick={this.handleDecimal} data-action="decimal" >.</NumBtn>
-                <OpBtn id="equal" type="button" onClick={this.handleCalc}>=</OpBtn>
+                <OpBtn id="equals" type="button" onClick={this.handleCalc}>=</OpBtn>
               </LastRow>
             </Keypad>
 
