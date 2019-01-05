@@ -16,6 +16,7 @@ const Display = styled.div`
   padding: 2%;
   
   button {
+    font-size: 1.5rem;
     height: 60px;
   }
 `
@@ -27,7 +28,7 @@ const Equal = styled.div`
 margin: auto;
 
 #equal {
-
+  font-size: 1.5rem;
   width: 210px;
   height: 60px;
 }
@@ -82,6 +83,9 @@ export default class IndexPage extends Component {
     })
   }
   
+  doMath = (e) => {
+    console.log('Calculating!!!')
+  }
 
 
   render() {
