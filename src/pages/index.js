@@ -66,7 +66,8 @@ export default class IndexPage extends Component {
       operator: '',
       answer: [],
       dec: false,
-      result: 0
+      result: 0,
+      display: 0
     }
     
   }
@@ -76,26 +77,42 @@ export default class IndexPage extends Component {
       amount: 0,
       operator: '',
       dec: false,
-      answer: this.state.answer = []
+      answer: [],
+      display: 0
     })
   }
 
   handleKeyPad = (e) => {
-    this.setState({ // eslint-disable-next-line
-      amount: this.state.amount += e.target.value, // eslint-disable-next-line
-      amount: this.state.amount.replace(/0?/,'') 
+    this.setState({ 
+      amount: this.state.amount += e.target.value,
+      display: parseFloat(this.state.amount)
+    })
+    this.setState({
+      amount: this.state.amount.replace(/0?/,'') ,
+      answer: [...this.state.answer, ...this.state.amount],
     })
   }
 
-  handleOpKey = (e, previousState) => {
+
+  handleOpKey = (e) => {
     console.log(this.state.amount)
+
     this.setState({
-      answer: [...this.state.answer, this.state.amount],
       operator: e.target.value,
-      amount: 0,
       dec: false,
     })
-    // console.log(this.state.operator.value)
+    this.setState({
+      amount: 0,
+      display: this.state.amount
+    })
+
+    if (this.state.answer.length > 1) {
+      this.setState({
+        // answer: [...this.state.answer, ...this.state.amount],
+      })
+    } else {
+    }
+    // return [...this.state.answer]
     console.log(this.state.answer)
   }
   
@@ -111,16 +128,18 @@ export default class IndexPage extends Component {
     }
   }
   
-  handleCalc = (num1, operator, num2) => {
+  handleCalc = (e, previousState) => {
     let result = 0
+    // let num1 = 
+    let num2 = parseFloat(this.state.answer[this.state.answer.length -1])
     if ( this.state.operator === '+' ) {
-      result = parseFloat(this.state.answer[0]) + parseFloat(this.state.answer[1])
+      result = parseFloat(this.state.answer[0]) + num2
     } else if (this.state.operator === '-') {
-      result = parseFloat(this.state.answer[0]) - parseFloat(this.state.answer[1])
+      result = parseFloat(this.state.answer[0]) - num2
     } else if (this.state.operator === 'x') {
-      result = parseFloat(this.state.answer[0]) * parseFloat(this.state.answer[1])
+      result = parseFloat(this.state.answer[0]) * num2
     } else if (this.state.operator === '÷') {
-      result = parseFloat(this.state.answer[0]) / parseFloat(this.state.answer[1])
+      result = parseFloat(this.state.answer[0]) / num2
     }
 
     console.log('Calculating!!!')
@@ -129,11 +148,12 @@ export default class IndexPage extends Component {
       dec: false,
       answer: [...this.state.answer, ...this.state.amount],
       amount: result,
-      answer: []
+      answer: [],
+      display: result
     })
     console.log('result =', result);
     console.log('amount =', this.state.amount);
-    console.log(this.state.answer)
+    console.log(this.state.answer);
   }
 
 
@@ -145,7 +165,7 @@ export default class IndexPage extends Component {
 
             <CalcDisplay id="display">
             {/* <div>{this.state.result}</div>  */}
-            {this.state.amount}
+            {this.state.display}
             </CalcDisplay>
 
             <Keypad>
