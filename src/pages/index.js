@@ -62,12 +62,10 @@ export default class IndexPage extends Component {
 
     this.state = {
       amount: 0,
-      numZero: false,
       operator: '',
       answer: [],
       dec: false,
       result: 0,
-      // display: 0
     }
     
   }
@@ -78,14 +76,12 @@ export default class IndexPage extends Component {
       operator: '',
       dec: false,
       answer: [],
-      // display: 0
     })
   }
 
   handleKeyPad = (e) => {
     this.setState({ 
       amount: this.state.amount += e.target.value,
-      // display: parseFloat(this.state.amount)
     })
     this.setState({
       amount: this.state.amount.replace(/0?/,'') ,
@@ -95,25 +91,20 @@ export default class IndexPage extends Component {
 
 
   handleOpKey = (e) => {
-    console.log(this.state.amount)
+    console.log('operator amount =', this.state.amount)
 
     this.setState({
       operator: e.target.value,
       dec: false,
+      answer: this.state.answer[this.state.answer.length -1]
     })
     this.setState({
       amount: 0,
-      // display: this.state.amount
     })
 
-    if (this.state.answer.length > 1) {
-      this.setState({
-        // answer: [...this.state.answer, ...this.state.amount],
-      })
-    } else {
-    }
+    
     // return [...this.state.answer]
-    console.log(this.state.answer)
+    console.log('answer =', this.state.answer.length -1)
   }
   
   handleDecimal = (e) => {
@@ -122,6 +113,7 @@ export default class IndexPage extends Component {
     })
 
     if (this.state.dec === false) {
+      
       this.setState({
         amount: this.state.amount + e.target.value
       })
@@ -148,8 +140,7 @@ export default class IndexPage extends Component {
       dec: false,
       answer: [...this.state.answer, ...this.state.amount],
       amount: result,
-      answer: [],
-      // display: result
+      answer: []
     })
     console.log('result =', result);
     console.log('amount =', this.state.amount);
@@ -169,30 +160,30 @@ export default class IndexPage extends Component {
             </CalcDisplay>
 
             <Keypad>
-              <SpecBtn id="clear" onClick={this.handleClear} data-action="clear" >AC</SpecBtn>
-              <SpecBtn id="negative" onClick={this.toggleNegative} data-action="negativToggle" >+/-</SpecBtn>
-              <SpecBtn id="percentage" onClick={this.toggleNegative} data-action="percentage" >%</SpecBtn>
-              <OpBtn id="add" value="+" onClick={this.handleOpKey} data-action="add" >+</OpBtn>
+              <SpecBtn id="clear" onClick={this.handleClear} data-action="clear">AC</SpecBtn>
+              <SpecBtn id="negative" onClick={this.toggleNegative} data-action="negativToggle">+/-</SpecBtn>
+              <SpecBtn id="percentage" onClick={this.toggleNegative} data-action="percentage">%</SpecBtn>
+              <OpBtn id="add" value="+" onClick={this.handleOpKey} data-action="add">+</OpBtn>
 
               <NumBtn id="one" value="1" onClick={this.handleKeyPad}>1</NumBtn>
               <NumBtn id="two" value="2" onClick={this.handleKeyPad}>2</NumBtn>
               <NumBtn id="three" value="3" onClick={this.handleKeyPad}>3</NumBtn>
-              <OpBtn id="subtract" value="-" onClick={this.handleOpKey} data-action="subtract" >-</OpBtn>
+              <OpBtn id="subtract" value="-" onClick={this.handleOpKey} data-action="subtract">-</OpBtn>
 
               <NumBtn id="four" value="4" onClick={this.handleKeyPad}>4</NumBtn>
               <NumBtn id="five" value="5" onClick={this.handleKeyPad}>5</NumBtn>
               <NumBtn id="six" value="6" onClick={this.handleKeyPad}>6</NumBtn>
-              <OpBtn id="multiply" value="x" onClick={this.handleOpKey} data-action="multiply" >x</OpBtn>
+              <OpBtn id="multiply" value="x" onClick={this.handleOpKey} data-action="multiply">x</OpBtn>
 
 
               <NumBtn id="seven" value="7" onClick={this.handleKeyPad}>7</NumBtn>
               <NumBtn id="eight" value="8" onClick={this.handleKeyPad}>8</NumBtn>
               <NumBtn id="nine"  value="9" onClick={this.handleKeyPad}>9</NumBtn>
-              <OpBtn id="divide" value="÷" onClick={this.handleOpKey} data-action="divide" >÷</OpBtn>
+              <OpBtn id="divide" value="÷" onClick={this.handleOpKey} data-action="divide">÷</OpBtn>
 
               <LastRow>
                 <NumBtn id="zero" value="0" onClick={this.handleKeyPad}>0</NumBtn>
-                <NumBtn id="decimal" value="." onClick={this.handleDecimal} data-action="decimal" >.</NumBtn>
+                <NumBtn id="decimal" value="." onClick={this.handleDecimal} data-action="decimal">.</NumBtn>
                 <OpBtn id="equals" type="button" onClick={this.handleCalc}>=</OpBtn>
               </LastRow>
             </Keypad>
