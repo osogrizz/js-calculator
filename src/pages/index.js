@@ -67,7 +67,7 @@ export default class IndexPage extends Component {
       answer: [],
       dec: false,
       result: 0,
-      display: 0
+      // display: 0
     }
     
   }
@@ -78,14 +78,14 @@ export default class IndexPage extends Component {
       operator: '',
       dec: false,
       answer: [],
-      display: 0
+      // display: 0
     })
   }
 
   handleKeyPad = (e) => {
     this.setState({ 
       amount: this.state.amount += e.target.value,
-      display: parseFloat(this.state.amount)
+      // display: parseFloat(this.state.amount)
     })
     this.setState({
       amount: this.state.amount.replace(/0?/,'') ,
@@ -103,7 +103,7 @@ export default class IndexPage extends Component {
     })
     this.setState({
       amount: 0,
-      display: this.state.amount
+      // display: this.state.amount
     })
 
     if (this.state.answer.length > 1) {
@@ -149,7 +149,7 @@ export default class IndexPage extends Component {
       answer: [...this.state.answer, ...this.state.amount],
       amount: result,
       answer: [],
-      display: result
+      // display: result
     })
     console.log('result =', result);
     console.log('amount =', this.state.amount);
@@ -165,7 +165,7 @@ export default class IndexPage extends Component {
 
             <CalcDisplay id="display">
             {/* <div>{this.state.result}</div>  */}
-            {this.state.display}
+            {this.state.amount}
             </CalcDisplay>
 
             <Keypad>
