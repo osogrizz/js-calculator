@@ -4,8 +4,14 @@ import Layout from '../components/layout'
 import SEO from '../components/seo'
 import styled from 'styled-components'
 
+
+const CalcWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 330px;
+  justify-content: center;
+`
   
-  const Keypad = styled.div`
+const Keypad = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 80px);
   grid-gap: 2px;
@@ -16,15 +22,15 @@ import styled from 'styled-components'
     font-size: 1.5rem;
     height: 60px;
   }
-  `
-  const LastRow = styled.div`
+`
+const LastRow = styled.div`
   display: grid;
   grid-template-columns: 162px 80px 80px;
   grid-gap: 2px;
   justify-content: center;
   margin: auto;
-  `
-  const CalcDisplay = styled.div`
+`
+const CalcDisplay = styled.div`
   display: grid;
   grid-template-columns: 320px;
   color: #fff;
@@ -32,9 +38,8 @@ import styled from 'styled-components'
   padding-top: 8%;
   justify-content: center;
   text-align: right;
-
-  `
-  const OpBtn = styled.button`
+`
+const OpBtn = styled.button`
   background-color: orange;
   color: #fff;
   border: none;
@@ -60,7 +65,8 @@ export default class IndexPage extends Component {
       numZero: false,
       operator: '',
       answer: [],
-      dec: false
+      dec: false,
+      result: 0
     }
     
   }
@@ -70,7 +76,7 @@ export default class IndexPage extends Component {
       amount: 0,
       operator: '',
       dec: false,
-      // answer: this.state.answer = []
+      answer: this.state.answer = []
     })
   }
 
@@ -83,15 +89,14 @@ export default class IndexPage extends Component {
 
   handleOpKey = (e, previousState) => {
     console.log(this.state.amount)
-    let tally = this.state.answer.push(this.state.amount)
     this.setState({
-      answer: [],
+      answer: [...this.state.answer, this.state.amount],
+      operator: e.target.value,
       amount: 0,
-      dec: false
+      dec: false,
     })
-    console.log(e.target.value)
+    // console.log(this.state.operator.value)
     console.log(this.state.answer)
-    console.log('Your tally is:', tally)
   }
   
   handleDecimal = (e) => {
@@ -106,11 +111,29 @@ export default class IndexPage extends Component {
     }
   }
   
-  handleCalc = (e) => {
-    this.setState({
-      
-    })
+  handleCalc = (num1, operator, num2) => {
+    let result = 0
+    if ( this.state.operator === '+' ) {
+      result = parseFloat(this.state.answer[0]) + parseFloat(this.state.answer[1])
+    } else if (this.state.operator === '-') {
+      result = parseFloat(this.state.answer[0]) - parseFloat(this.state.answer[1])
+    } else if (this.state.operator === 'x') {
+      result = parseFloat(this.state.answer[0]) * parseFloat(this.state.answer[1])
+    } else if (this.state.operator === '÷') {
+      result = parseFloat(this.state.answer[0]) / parseFloat(this.state.answer[1])
+    }
+
     console.log('Calculating!!!')
+    
+    this.setState({
+      dec: false,
+      answer: [...this.state.answer, ...this.state.amount],
+      amount: result,
+      answer: []
+    })
+    console.log('result =', result);
+    console.log('amount =', this.state.amount);
+    console.log(this.state.answer)
   }
 
 
@@ -118,9 +141,10 @@ export default class IndexPage extends Component {
     return (
       <Layout>
         <SEO title="Home" keywords={[`freecodecamp`, `application`, `calculator`]} />
-          <div>
+          <CalcWrapper>
 
             <CalcDisplay id="display">
+            {/* <div>{this.state.result}</div>  */}
             {this.state.amount}
             </CalcDisplay>
 
@@ -152,10 +176,7 @@ export default class IndexPage extends Component {
                 <OpBtn id="equals" type="button" onClick={this.handleCalc}>=</OpBtn>
               </LastRow>
             </Keypad>
-
-            {/* <Equal id="equals">
-            </Equal> */}
-          </div>
+          </CalcWrapper>
       </Layout>
     )
   }
