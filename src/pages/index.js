@@ -122,16 +122,16 @@ export default class IndexPage extends Component {
   
   handleCalc = (e, previousState) => {
     let result = 0
-    // let num1 = 
+    let num1 = parseFloat(this.state.answer[0])
     let num2 = parseFloat(this.state.answer[this.state.answer.length -1])
     if ( this.state.operator === '+' ) {
-      result = parseFloat(this.state.answer[0]) + num2
+      result = num1 + num2
     } else if (this.state.operator === '-') {
-      result = parseFloat(this.state.answer[0]) - num2
+      result = num1 - num2
     } else if (this.state.operator === 'x') {
-      result = parseFloat(this.state.answer[0]) * num2
+      result = num1 * num2
     } else if (this.state.operator === '÷') {
-      result = parseFloat(this.state.answer[0]) / num2
+      result = num1 / num2
     }
 
     console.log('Calculating!!!')
