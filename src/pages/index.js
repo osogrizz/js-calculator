@@ -40,10 +40,11 @@ const CalcDisplay = styled.div`
   grid-template-columns: 320px;
   color: #fff;
   height: 80px;
-  font-size: 1.8rem;
+  font-size: 2.3rem;
   padding: 8% 0 4%;
   justify-content: center;
   text-align: right;
+  padding-right: 40px;
 `
 const OpBtn = styled.button`
   background-color: orange;
@@ -101,15 +102,19 @@ export default class IndexPage extends Component {
     let result = 0
     let num1 = parseFloat(this.state.answer[0])
     let num2 = parseFloat(this.state.answer[this.state.answer.length -1])
-    if ( this.state.operator === '+' ) {
-      result = num1 + num2
-    } else if (this.state.operator === '-') {
-      result = num1 - num2
-    } else if (this.state.operator === 'x') {
-      result = num1 * num2
-    } else if (this.state.operator === '÷') {
-      result = num1 / num2
+
+    if (this.state.answer[1]) {
+      if ( this.state.operator === '+' ) {
+        result = num1 + num2
+      } else if (this.state.operator === '-') {
+        result = num1 - num2
+      } else if (this.state.operator === 'x') {
+        result = num1 * num2
+      } else if (this.state.operator === '÷') {
+        result = num1 / num2
+      }
     }
+
 
     this.setState({
       operator: e.target.value,
