@@ -13,6 +13,7 @@ const CalcWrapper = styled.div`
   grid-template-columns: auto;
   justify-content: center;
   box-shadow: 0px 5px 44px 0px rgba(0,0,0,0.8);
+  border-radius: 10px;
 `
   
 const Keypad = styled.div`
@@ -38,6 +39,7 @@ const CalcDisplay = styled.div`
   display: grid;
   grid-template-columns: 320px;
   color: #fff;
+  height: 80px;
   font-size: 1.8rem;
   padding: 8% 0 4%;
   justify-content: center;
