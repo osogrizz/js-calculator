@@ -6,9 +6,13 @@ import styled from 'styled-components'
 
 
 const CalcWrapper = styled.div`
+  margin: 0 auto;
+  padding: 0;
   display: grid;
-  grid-template-columns: 330px;
+  width: 326px;
+  grid-template-columns: auto;
   justify-content: center;
+  box-shadow: 0px 5px 44px 0px rgba(0,0,0,0.8);
 `
   
 const Keypad = styled.div`
@@ -16,7 +20,7 @@ const Keypad = styled.div`
   grid-template-columns: repeat(4, 80px);
   grid-gap: 2px;
   justify-content: center;
-  padding: 2%;
+  // padding: 2%;
   
   button {
     font-size: 1.5rem;
@@ -92,6 +96,18 @@ export default class IndexPage extends Component {
 
   handleOpKey = (e) => {
     console.log('operator amount =', this.state.amount)
+    let result = 0
+    let num1 = parseFloat(this.state.answer[0])
+    let num2 = parseFloat(this.state.answer[this.state.answer.length -1])
+    if ( this.state.operator === '+' ) {
+      result = num1 + num2
+    } else if (this.state.operator === '-') {
+      result = num1 - num2
+    } else if (this.state.operator === 'x') {
+      result = num1 * num2
+    } else if (this.state.operator === '÷') {
+      result = num1 / num2
+    }
 
     this.setState({
       operator: e.target.value,
