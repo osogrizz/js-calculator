@@ -35,7 +35,7 @@ const CalcDisplay = styled.div`
   grid-template-columns: 320px;
   color: #fff;
   font-size: 1.8rem;
-  padding-top: 8%;
+  padding: 8% 0 4%;
   justify-content: center;
   text-align: right;
 `
@@ -140,7 +140,7 @@ export default class IndexPage extends Component {
       dec: false,
       answer: [...this.state.answer, ...this.state.amount],
       amount: result,
-      answer: []
+      answer: [...this.state.answer, result]
     })
     console.log('result =', result);
     console.log('amount =', this.state.amount);
