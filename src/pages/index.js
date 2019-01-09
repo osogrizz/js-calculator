@@ -87,7 +87,7 @@ export default class IndexPage extends Component {
   }
 
   handleKeyPad = (e) => {
-    this.setState({ 
+    this.setState({ // eslint-disable-next-line
       amount: this.state.amount += e.target.value,
     })
     this.setState({
@@ -99,35 +99,36 @@ export default class IndexPage extends Component {
 
   handleOpKey = (e) => {
     console.log('operator amount =', this.state.amount)
-    let result = 0
-    let num1 = parseFloat(this.state.answer[0])
-    let num2 = parseFloat(this.state.answer[this.state.answer.length -1])
-
-    if (this.state.answer[1]) {
-      if ( this.state.operator === '+' ) {
-        result = num1 + num2
-      } else if (this.state.operator === '-') {
-        result = num1 - num2
-      } else if (this.state.operator === 'x') {
-        result = num1 * num2
-      } else if (this.state.operator === '÷') {
-        result = num1 / num2
-      }
-    }
-
-
+    
+    // if (this.state.answer.length() >= 1) {
+    //   let result = 0
+    //   let num1 = parseFloat(this.state.answer[0])
+    //   let num2 = parseFloat(this.state.answer[this.state.answer.length -1])
+    //   if ( this.state.operator === '+' ) {
+    //     result = num1 + num2
+    //   } else if (this.state.operator === '-') {
+    //     result = num1 - num2
+    //   } else if (this.state.operator === 'x') {
+    //     result = num1 * num2
+    //   } else if (this.state.operator === '÷') {
+    //     result = num1 / num2
+    //   }
+    //   console.log('result =', result)
+    //   this.state.answer.push(result)
+    //   console.log(this.state.answer)
+       
+    // }
+    
     this.setState({
       operator: e.target.value,
       dec: false,
-      answer: this.state.answer[this.state.answer.length -1]
+      answer: this.state.answer[this.state.answer.length -1],
     })
     this.setState({
       amount: 0,
     })
-
-    
     // return [...this.state.answer]
-    console.log('answer =', this.state.answer.length -1)
+    console.log('answer =', this.state.answer[this.state.answer.length -1])
   }
   
   handleDecimal = (e) => {
@@ -157,12 +158,14 @@ export default class IndexPage extends Component {
       result = num1 / num2
     }
 
-    console.log('Calculating!!!')
+    // console.log('Calculating!!!')
     
     this.setState({
       dec: false,
       answer: [...this.state.answer, ...this.state.amount],
       amount: result,
+    })
+    this.setState({
       answer: [...this.state.answer, result]
     })
     console.log('result =', result);
