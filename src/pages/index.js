@@ -188,19 +188,20 @@ export default class IndexPage extends Component {
     let num2 = parseFloat(this.state.answer[this.state.answer.length -1])
     if ( this.state.operator === '+' ) {
       this.setState({
-        result: num1 + num2
+        result: this.state.result = num1 + num2
       })
+      console.log(this.state.result)
     } else if (this.state.operator === '-') {
       this.setState({
-        result: num1 - num2
+        result: this.state.result = num1 - num2
       })
     } else if (this.state.operator === 'x') {
       this.setState({
-        result: num1 * num2
+        result: this.state.result = num1 * num2
       })
     } else if (this.state.operator === '÷') {
       this.setState({
-        result: num1 / num2
+        result: this.state.result = num1 / num2
       })
     }
 
