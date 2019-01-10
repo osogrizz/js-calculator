@@ -21,7 +21,6 @@ const Keypad = styled.div`
   grid-template-columns: repeat(4, 80px);
   grid-gap: 2px;
   justify-content: center;
-  // padding: 2%;
   
   button {
     font-size: 1.5rem;
@@ -73,6 +72,7 @@ export default class IndexPage extends Component {
       answer: [],
       dec: false,
       result: 0,
+      count: 1
     }
     
   }
@@ -83,6 +83,7 @@ export default class IndexPage extends Component {
       operator: '',
       dec: false,
       answer: [],
+      count: 1
     })
   }
 
@@ -99,37 +100,75 @@ export default class IndexPage extends Component {
 
   handleOpKey = (e) => {
     console.log('operator amount =', this.state.amount)
-    
-    // if (this.state.answer.length() >= 1) {
-    //   let result = 0
+    console.log('count =', this.state.count)
+    if (this.state.count === 2) {
+      this.handleCalc()
+      
+      this.setState({
+        amount: this.state.result
+      })
+    }
+
+    // I need to calculate ion operator click if there is more than 1 item in answer[].
+    // this attempt solves user story 9 but breaks 12 & 14.
+
+    // let len = this.state.answer.length
+    // // if (this.state.answer.length() >= 1) {
+    //   //   let result = 0
     //   let num1 = parseFloat(this.state.answer[0])
-    //   let num2 = parseFloat(this.state.answer[this.state.answer.length -1])
-    //   if ( this.state.operator === '+' ) {
-    //     result = num1 + num2
-    //   } else if (this.state.operator === '-') {
-    //     result = num1 - num2
-    //   } else if (this.state.operator === 'x') {
-    //     result = num1 * num2
-    //   } else if (this.state.operator === '÷') {
-    //     result = num1 / num2
+    //   // let num2 = parseFloat(this.state.answer[this.state.answer.length -1])
+    //   let num2 = parseFloat(this.state.answer[1])
+    //   let add = num1 + num2
+    //   let sub = num1 - num2
+    //   let mul = num1 * num2
+    //   let div = num1 / num2
+    //   if (len == 2) {
+    //     if ( this.state.operator === '+' ) {
+    //       this.setState({
+    //         answer: parseFloat(add),
+    //         amount: this.state.answer
+    //       })
+    //     } else if (this.state.operator === '-') {
+    //       this.setState({
+    //         answer: parseFloat(sub),
+    //         amount: this.state.answer
+    //       })
+    //     } else if (this.state.operator === 'x') {
+    //       this.setState({
+    //         answer: parseFloat(mul),
+    //         amount: this.state.answer
+    //       })
+    //     } else if (this.state.operator === '÷') {
+    //         this.setState({
+    //           answer: parseFloat(div),
+    //           amount: this.state.answer
+    //         })
+    //     } else {
+    //       this.setState({
+    //         answer: this.state.answer[this.state.answer.length -1],
+    //       })
+    //     }
     //   }
-    //   console.log('result =', result)
-    //   this.state.answer.push(result)
+      
     //   console.log(this.state.answer)
-       
-    // }
-    
-    this.setState({
-      operator: e.target.value,
-      dec: false,
-      answer: this.state.answer[this.state.answer.length -1],
-    })
-    this.setState({
-      amount: 0,
-    })
-    // return [...this.state.answer]
-    console.log('answer =', this.state.answer[this.state.answer.length -1])
-  }
+
+      //  ---- above is to solve user story 9.----
+      
+      
+      this.setState({
+        operator: e.target.value,
+        answer: this.state.answer[this.state.answer.length -1],
+        dec: false,
+        count: this.state.count + 1
+      })
+      this.setState({
+        amount: 0,
+      })
+      // console.log('len =', len)
+      // console.log( [...this.state.answer, add]);
+      // console.log('answer =', add)
+    }
+  
   
   handleDecimal = (e) => {
     this.setState({
@@ -145,32 +184,41 @@ export default class IndexPage extends Component {
   }
   
   handleCalc = (e, previousState) => {
-    let result = 0
     let num1 = parseFloat(this.state.answer[0])
     let num2 = parseFloat(this.state.answer[this.state.answer.length -1])
     if ( this.state.operator === '+' ) {
-      result = num1 + num2
+      this.setState({
+        result: num1 + num2
+      })
     } else if (this.state.operator === '-') {
-      result = num1 - num2
+      this.setState({
+        result: num1 - num2
+      })
     } else if (this.state.operator === 'x') {
-      result = num1 * num2
+      this.setState({
+        result: num1 * num2
+      })
     } else if (this.state.operator === '÷') {
-      result = num1 / num2
+      this.setState({
+        result: num1 / num2
+      })
     }
 
     // console.log('Calculating!!!')
     
     this.setState({
       dec: false,
+      amount: this.state.result,
       answer: [...this.state.answer, ...this.state.amount],
-      amount: result,
+      count: 1
     })
     this.setState({
-      answer: [...this.state.answer, result]
+      answer: [...this.state.answer, this.state.result]
     })
-    console.log('result =', result);
+    console.log('result =', this.state.result);
     console.log('amount =', this.state.amount);
-    console.log(this.state.answer);
+    console.log([...this.state.answer]);
+    console.log('answer =', this.state.answer[this.state.answer.length -1])
   }
 
 
@@ -186,6 +234,7 @@ export default class IndexPage extends Component {
             </CalcDisplay>
 
             <Keypad>
+
               <SpecBtn id="clear" onClick={this.handleClear} data-action="clear">AC</SpecBtn>
               <SpecBtn id="negative" onClick={this.toggleNegative} data-action="negativToggle">+/-</SpecBtn>
               <SpecBtn id="percentage" onClick={this.toggleNegative} data-action="percentage">%</SpecBtn>
@@ -212,6 +261,7 @@ export default class IndexPage extends Component {
                 <NumBtn id="decimal" value="." onClick={this.handleDecimal} data-action="decimal">.</NumBtn>
                 <OpBtn id="equals" type="button" onClick={this.handleCalc}>=</OpBtn>
               </LastRow>
+
             </Keypad>
           </CalcWrapper>
       </Layout>
