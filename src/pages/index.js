@@ -99,14 +99,13 @@ export default class IndexPage extends Component {
 
 
   handleOpKey = (e) => {
-    console.log('operator amount =', this.state.amount)
     console.log('count =', this.state.count)
     if (this.state.count === 2) {
-      this.handleCalc()
-      
       this.setState({
-        amount: this.state.result
+        amount: this.state.result,
+        answer: [...this.state.answer, this.state.amount] 
       })
+      this.handleCalc()
     }
 
     // I need to calculate ion operator click if there is more than 1 item in answer[].
@@ -164,9 +163,6 @@ export default class IndexPage extends Component {
       this.setState({
         amount: 0,
       })
-      // console.log('len =', len)
-      // console.log( [...this.state.answer, add]);
-      // console.log('answer =', add)
     }
   
   
@@ -209,8 +205,9 @@ export default class IndexPage extends Component {
     
     this.setState({
       dec: false,
-      amount: this.state.result,
-      answer: [...this.state.answer, ...this.state.amount],
+      amount: this.state.amount = this.state.result,
+      answer: [...this.state.answer, this.state.result],
+      // answer: [...this.state.answer, ...this.state.amount],
       count: 1
     })
     this.setState({
