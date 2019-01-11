@@ -62,6 +62,11 @@ const NumBtn = styled.button`
   color: #fff;
 `
 
+const MathView = styled.div`
+  color: #777;
+  padding-top: 8px;
+`
+
 export default class IndexPage extends Component {
   constructor(props) {
     super(props)
@@ -70,6 +75,7 @@ export default class IndexPage extends Component {
       amount: 0,
       operator: '',
       answer: [],
+      history: [],
       dec: false,
       result: 0,
       count: 1
@@ -180,8 +186,8 @@ export default class IndexPage extends Component {
         <SEO title="Home" keywords={[`freecodecamp`, `application`, `calculator`]} />
           <CalcWrapper>
 
+            <MathView>{this.state.history}</MathView> 
             <CalcDisplay id="display">
-            {/* <div>{this.state.result}</div>  */}
             {this.state.amount}
             </CalcDisplay>
 
