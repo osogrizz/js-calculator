@@ -107,63 +107,17 @@ export default class IndexPage extends Component {
       })
       this.handleCalc()
     }
-
-    // I need to calculate ion operator click if there is more than 1 item in answer[].
-    // this attempt solves user story 9 but breaks 12 & 14.
-
-    // let len = this.state.answer.length
-    // // if (this.state.answer.length() >= 1) {
-    //   //   let result = 0
-    //   let num1 = parseFloat(this.state.answer[0])
-    //   // let num2 = parseFloat(this.state.answer[this.state.answer.length -1])
-    //   let num2 = parseFloat(this.state.answer[1])
-    //   let add = num1 + num2
-    //   let sub = num1 - num2
-    //   let mul = num1 * num2
-    //   let div = num1 / num2
-    //   if (len == 2) {
-    //     if ( this.state.operator === '+' ) {
-    //       this.setState({
-    //         answer: parseFloat(add),
-    //         amount: this.state.answer
-    //       })
-    //     } else if (this.state.operator === '-') {
-    //       this.setState({
-    //         answer: parseFloat(sub),
-    //         amount: this.state.answer
-    //       })
-    //     } else if (this.state.operator === 'x') {
-    //       this.setState({
-    //         answer: parseFloat(mul),
-    //         amount: this.state.answer
-    //       })
-    //     } else if (this.state.operator === '÷') {
-    //         this.setState({
-    //           answer: parseFloat(div),
-    //           amount: this.state.answer
-    //         })
-    //     } else {
-    //       this.setState({
-    //         answer: this.state.answer[this.state.answer.length -1],
-    //       })
-    //     }
-    //   }
-      
-    //   console.log(this.state.answer)
-
-      //  ---- above is to solve user story 9.----
-      
-      
-      this.setState({
-        operator: e.target.value,
-        answer: this.state.answer[this.state.answer.length -1],
-        dec: false,
-        count: this.state.count + 1
-      })
-      this.setState({
-        amount: 0,
-      })
-    }
+        
+    this.setState({
+      operator: e.target.value,
+      answer: this.state.answer[this.state.answer.length -1],
+      dec: false,
+      count: this.state.count + 1
+    })
+    this.setState({
+      amount: 0,
+    })
+  }
   
   
   handleDecimal = (e) => {
