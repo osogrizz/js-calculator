@@ -108,17 +108,24 @@ export default class IndexPage extends Component {
 
   handleOpKey = (e) => {
     console.log('count =', this.state.count)
-    if (this.state.count === 2) {
+    // if (this.state.count === 2) {
+    //   this.setState({
+    //     amount: this.state.result,
+    //     answer: [...this.state.answer, this.state.amount] 
+    //   })
+    //   this.handleCalc()
+    // }
+    if (e.target.value !== this.state.operator) {
       this.setState({
-        amount: this.state.result,
-        answer: [...this.state.answer, this.state.amount] 
+        history: [...this.state.history, e.target.value],
+      }, () => {
+        console.log('history =', this.state.history);
+        
       })
-      this.handleCalc()
     }
         
     this.setState({
       operator: e.target.value,
-      history: [...this.state.history, e.target.value],
       answer: this.state.answer[this.state.answer.length -1],
       dec: false,
       count: this.state.count + 1
@@ -146,7 +153,7 @@ export default class IndexPage extends Component {
   handleCalc = (e, previousState) => {
     let num1 = parseFloat(this.state.answer[0])
     let num2 = parseFloat(this.state.answer[this.state.answer.length -1])
-    if ( this.state.operator === '+' ) {
+    if ( this.state.operator === '+') {
       this.setState({
         result: num1 + num2,
       }, () => {
