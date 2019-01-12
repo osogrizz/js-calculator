@@ -152,10 +152,10 @@ export default class IndexPage extends Component {
       }, () => {
         this.setState({
           result: this.state.result,
-          amount: this.state.result
+          amount: this.state.result,
         })
       })
-      console.log(this.state.result)
+
     } else if (this.state.operator === '-') {
       this.setState({
         result: num1 - num2
@@ -189,13 +189,7 @@ export default class IndexPage extends Component {
     
     this.setState({
       dec: false,
-      amount: [...this.state.amount, ...this.state.result],
-      answer: [...this.state.answer, ...this.state.result],
-      // answer: [...this.state.answer, ...this.state.amount],
       count: 1
-    })
-    this.setState({
-      // answer: [...this.state.answer, this.state.result]
     })
     console.log('result =', this.state.result);
     console.log('amount =', this.state.amount);
