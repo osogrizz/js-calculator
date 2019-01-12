@@ -65,6 +65,7 @@ const NumBtn = styled.button`
 const MathView = styled.div`
   color: #777;
   padding-top: 8px;
+  height: 35px;
 `
 
 export default class IndexPage extends Component {
@@ -126,7 +127,7 @@ export default class IndexPage extends Component {
         
     this.setState({
       operator: e.target.value,
-      answer: this.state.answer[this.state.answer.length -1],
+      // answer: this.state.answer[this.state.answer.length -1],
       dec: false,
       count: this.state.count + 1
     })
@@ -142,7 +143,6 @@ export default class IndexPage extends Component {
     })
 
     if (this.state.dec === false) {
-      
       this.setState({
         amount: this.state.amount + e.target.value,
         history: [...this.state.history, e.target.value]
@@ -160,16 +160,17 @@ export default class IndexPage extends Component {
         this.setState({
           result: this.state.result,
           amount: this.state.result,
+          answer: this.state.answer[0] = this.state.result
         })
       })
-
     } else if (this.state.operator === '-') {
       this.setState({
         result: num1 - num2
       }, () => {
         this.setState({
           result: this.state.result,
-          amount: this.state.result
+          amount: this.state.result,
+          answer: this.state.answer[0] = this.state.result
         })
       })
     } else if (this.state.operator === 'x') {
@@ -178,7 +179,8 @@ export default class IndexPage extends Component {
       }, () => {
         this.setState({
           result: this.state.result,
-          amount: this.state.result
+          amount: this.state.result,
+          answer: this.state.answer[0] = this.state.result
         })
       })
     } else if (this.state.operator === '÷') {
@@ -187,15 +189,15 @@ export default class IndexPage extends Component {
       }, () => {
         this.setState({
           result: this.state.result,
-          amount: this.state.result
+          amount: this.state.result,
+          answer: this.state.answer[0] = this.state.result
         })
       })
     }
-
-    // console.log('Calculating!!!')
     
     this.setState({
       dec: false,
+      // answer: [...this.state.answer, this.state.amount],
       count: 1
     })
     console.log('result =', this.state.result);
