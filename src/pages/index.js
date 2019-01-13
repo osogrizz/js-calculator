@@ -101,7 +101,7 @@ export default class IndexPage extends Component {
 
 
   handleOpKey = (e) => {
-    console.log();
+    console.log(e.target.value);
 
     if (this.state.history[this.state.history.length -1] === '+' ||
         this.state.history[this.state.history.length -1] === '-' ||
@@ -109,18 +109,28 @@ export default class IndexPage extends Component {
         this.state.history[this.state.history.length -1] === '/'  ) {
        
           console.log(`replace with ${e.target.value}`)
+
+          let slicedHistory = this.state.history.substr(0, this.state.history.length -1)
+
           this.setState({
-            history: this.state.history.replace(/.$/, `${e.target.value}`)
+            operator: e.target.value,
+            history: this.state.history
           }, () => {
-            console.log(this.state.history)
+            console.log('history call back Yo!', this.state.history)
+            console.log('sliced history =', slicedHistory)
+            this.setState({
+              history: slicedHistory + this.state.operator
+            })
           })
+
+
     }
     
     if (e.target.value !== this.state.operator) {
       this.setState({
         history:  this.state.history + e.target.value,
       }, () => {
-        console.log('history =', this.state.history[this.state.history.length -1]);
+        
         
       })
     }
@@ -148,7 +158,7 @@ export default class IndexPage extends Component {
   }
   
   handleCalc = (e, previousState) => {
-    this.setState({
+    this.setState({ // eslint-disable-next-line
       amount: eval(this.state.history),
       history: ''
     })
