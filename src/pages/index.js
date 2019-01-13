@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Layout from '../components/layout'
-// import Image from '../components/image'
 import SEO from '../components/seo'
 import styled from 'styled-components'
 
@@ -75,13 +74,10 @@ export default class IndexPage extends Component {
     this.state = {
       amount: 0,
       operator: '',
-      answer: [],
-      history: [],
+      history: '',
       dec: false,
       result: 0,
-      count: 1
     }
-    
   }
 
   handleClear = (e) => {
@@ -89,47 +85,48 @@ export default class IndexPage extends Component {
       amount: 0,
       operator: '',
       dec: false,
-      history: [],
-      answer: [],
-      count: 1
+      history: '',
     })
   }
 
   handleKeyPad = (e) => {
     this.setState({ // eslint-disable-next-line
       amount: this.state.amount += e.target.value,
-      history: [...this.state.history, e.target.value]
+      history: this.state.history + e.target.value
     })
     this.setState({
       amount: this.state.amount.replace(/0?/,'') ,
-      answer: [...this.state.answer, ...this.state.amount],
     })
   }
 
 
   handleOpKey = (e) => {
-    console.log('count =', this.state.count)
-    // if (this.state.count === 2) {
-    //   this.setState({
-    //     amount: this.state.result,
-    //     answer: [...this.state.answer, this.state.amount] 
-    //   })
-    //   this.handleCalc()
-    // }
+    console.log();
+
+    if (this.state.history[this.state.history.length -1] === '+' ||
+        this.state.history[this.state.history.length -1] === '-' ||
+        this.state.history[this.state.history.length -1] === '*' ||
+        this.state.history[this.state.history.length -1] === '/'  ) {
+       
+          console.log(`replace with ${e.target.value}`)
+          this.setState({
+            history: this.state.history.replace(/.$/, `${e.target.value}`)
+          }, () => {
+            console.log(this.state.history)
+          })
+    }
+    
     if (e.target.value !== this.state.operator) {
       this.setState({
-        history: [...this.state.history, e.target.value],
+        history:  this.state.history + e.target.value,
       }, () => {
-        console.log('history =', this.state.history);
+        console.log('history =', this.state.history[this.state.history.length -1]);
         
       })
     }
         
     this.setState({
-      operator: e.target.value,
-      // answer: this.state.answer[this.state.answer.length -1],
       dec: false,
-      count: this.state.count + 1
     })
     this.setState({
       amount: 0,
@@ -145,65 +142,26 @@ export default class IndexPage extends Component {
     if (this.state.dec === false) {
       this.setState({
         amount: this.state.amount + e.target.value,
-        history: [...this.state.history, e.target.value]
+        history: this.state.history +  e.target.value
       })
     }
   }
   
   handleCalc = (e, previousState) => {
-    let num1 = parseFloat(this.state.answer[0])
-    let num2 = parseFloat(this.state.answer[this.state.answer.length -1])
-    if ( this.state.operator === '+') {
-      this.setState({
-        result: num1 + num2,
-      }, () => {
-        this.setState({
-          result: this.state.result,
-          amount: this.state.result,
-          answer: this.state.answer[0] = this.state.result
-        })
-      })
-    } else if (this.state.operator === '-') {
-      this.setState({
-        result: num1 - num2
-      }, () => {
-        this.setState({
-          result: this.state.result,
-          amount: this.state.result,
-          answer: this.state.answer[0] = this.state.result
-        })
-      })
-    } else if (this.state.operator === 'x') {
-      this.setState({
-        result: num1 * num2
-      }, () => {
-        this.setState({
-          result: this.state.result,
-          amount: this.state.result,
-          answer: this.state.answer[0] = this.state.result
-        })
-      })
-    } else if (this.state.operator === '÷') {
-      this.setState({
-        result: num1 / num2
-      }, () => {
-        this.setState({
-          result: this.state.result,
-          amount: this.state.result,
-          answer: this.state.answer[0] = this.state.result
-        })
-      })
-    }
+    this.setState({
+      amount: eval(this.state.history),
+      history: ''
+    })
     
     this.setState({
       dec: false,
-      // answer: [...this.state.answer, this.state.amount],
-      count: 1
+    }, () => {
+      this.setState({
+        history: this.state.amount
+      })
     })
-    console.log('result =', this.state.result);
+    console.log('history =', this.state.history);
     console.log('amount =', this.state.amount);
-    console.log([...this.state.answer]);
-    console.log('answer =', this.state.answer[this.state.answer.length -1])
   }
 
 
@@ -233,13 +191,13 @@ export default class IndexPage extends Component {
               <NumBtn id="four" value="4" onClick={this.handleKeyPad}>4</NumBtn>
               <NumBtn id="five" value="5" onClick={this.handleKeyPad}>5</NumBtn>
               <NumBtn id="six" value="6" onClick={this.handleKeyPad}>6</NumBtn>
-              <OpBtn id="multiply" value="x" onClick={this.handleOpKey} data-action="multiply">x</OpBtn>
+              <OpBtn id="multiply" value="*" onClick={this.handleOpKey} data-action="multiply">x</OpBtn>
 
 
               <NumBtn id="seven" value="7" onClick={this.handleKeyPad}>7</NumBtn>
               <NumBtn id="eight" value="8" onClick={this.handleKeyPad}>8</NumBtn>
               <NumBtn id="nine"  value="9" onClick={this.handleKeyPad}>9</NumBtn>
-              <OpBtn id="divide" value="÷" onClick={this.handleOpKey} data-action="divide">÷</OpBtn>
+              <OpBtn id="divide" value="/" onClick={this.handleOpKey} data-action="divide">÷</OpBtn>
 
               <LastRow>
                 <NumBtn id="zero" value="0" onClick={this.handleKeyPad}>0</NumBtn>
