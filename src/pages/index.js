@@ -135,10 +135,6 @@ export default class IndexPage extends Component {
   handleCalc = (e, previousState) => {
     console.log(`Calculating!!!`);
     
-    
-    
-    
-    
     this.setState({
       values: [...this.state.values, ...this.state.amount],
     }, () => {
@@ -150,7 +146,6 @@ export default class IndexPage extends Component {
       let result = 0
 
       if ( this.state.operator  === '+'  ) {
-        console.log('Add');
         result = num1 + num2
       } 
       if (this.state.operator === '-') {
@@ -167,12 +162,10 @@ export default class IndexPage extends Component {
         dec: false,
         amount: result,
         values: [],
-        values: [this.state.values, ...this.state.amount]
-      }, () => {
-        this.setState({
-          
-        })
       })
+    })
+    this.setState({
+      values: [this.state.values, ...this.state.amount]
     })
   }
   
