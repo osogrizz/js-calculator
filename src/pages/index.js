@@ -73,100 +73,33 @@ export default class IndexPage extends Component {
 
     this.state = {
       amount: 0,
+      values: [],
       operator: '',
       history: '',
       dec: false,
-
     }
   }
 
   handleClear = (e) => {
-    this.setState({
-      amount: 0,
-      operator: '',
-      dec: false,
-      history: '',
-    })
+    
   }
 
   handleKeyPad = (e) => {
-    this.setState({ // eslint-disable-next-line
-      amount: this.state.amount += e.target.value,
-      history: this.state.history + e.target.value
-    })
-    this.setState({
-      amount: this.state.amount.replace(/0?/,'') ,
-    })
+    
   }
 
 
   handleOpKey = (e) => {
-    console.log(e.target.value);
-
-    if (this.state.history[this.state.history.length -1] === '+' ||
-        this.state.history[this.state.history.length -1] === '-' ||
-        this.state.history[this.state.history.length -1] === '*' ||
-        this.state.history[this.state.history.length -1] === '/'  ) {
-       
-          console.log(`replace with ${e.target.value}`)
-
-          let slicedHistory = this.state.history.substr(0, this.state.history.length -1)
-
-          this.setState({
-            operator: e.target.value,
-            history: this.state.history
-          }, () => {
-            console.log('history call back Yo!', this.state.history)
-            console.log('sliced history =', slicedHistory)
-            this.setState({
-              history: slicedHistory + this.state.operator
-            })
-          })
-    }
     
-    if (e.target.value !== this.state.operator) {
-      this.setState({
-        history:  this.state.history + e.target.value,
-      })
-    }
-        
-    this.setState({
-      dec: false,
-    })
-    this.setState({
-      amount: 0,
-    })
   }
   
   
   handleDecimal = (e) => {
-    this.setState({
-      dec: true
-    })
-
-    if (this.state.dec === false) {
-      this.setState({
-        amount: this.state.amount + e.target.value,
-        history: this.state.history +  e.target.value
-      })
-    }
+    
   }
   
   handleCalc = (e, previousState) => {
-    this.setState({ // eslint-disable-next-line
-      amount: eval(this.state.history),
-      history: ''
-    })
     
-    this.setState({
-      dec: false,
-    }, () => {
-      this.setState({
-        history: this.state.amount
-      })
-    })
-    console.log('history =', this.state.history);
-    console.log('amount =', this.state.amount);
   }
 
 
