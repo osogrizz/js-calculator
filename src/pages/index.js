@@ -78,6 +78,7 @@ export default class IndexPage extends Component {
     this.state = {
       amount: 0,
       values: [],
+      prevOperator: '',
       operator: '',
       history: '',
       dec: false,
@@ -85,7 +86,6 @@ export default class IndexPage extends Component {
   }
 
   handleClear = (e) => {
-    console.log('Clear!!!');
     this.setState({
       amount: 0,
       values: [],
@@ -97,7 +97,6 @@ export default class IndexPage extends Component {
 
   handleDecimal = (e) => {
     if (!this.state.dec) {
-      console.log(`Decimal!`);
       this.setState({
         history: this.state.history + e.target.value, // eslint-disable-next-line
         amount: this.state.amount += e.target.value,
@@ -108,7 +107,6 @@ export default class IndexPage extends Component {
   }
 
   handleKeyPad = (e) => {
-    console.log(`Numbaaahs! ${e.target.value}`);
     this.setState({
       history: this.state.history + e.target.value, // eslint-disable-next-line
       amount: this.state.amount += e.target.value,
@@ -121,19 +119,65 @@ export default class IndexPage extends Component {
   }
 
   handleOpKey = (e) => {
-   console.log(`Smooth Operator ${e.target.value}`);
-   this.setState({
-     operator: e.target.value,
-     dec: false,
-     amount: 0,
-     history: this.state.history + e.target.value,
-     values: [...this.state.values, ...this.state.amount]
-   })
+    this.setState({
+      prevOperator: this.state.operator
+    }, () => {
+      console.log(this.state.prevOperator);
+
+    })
+
+    console.log(`Smooth Operator ${e.target.value}`);
+    if (this.state.values.length + 1  > 1) {
+      console.log(this.state.values.length);
+      let newVal = this.state.values.reduce((a,b) => a + b)
+      console.log('newVal =', newVal);
+      let num1 = this.state.values[1] === this.state.values.length -1
+      let num2 = this.state.values[0] === newVal
+      this.setState({
+        values: [num1, num2]
+      }, () => {
+        let result = 0
+        console.log('values =', this.state.values);
+        if (this.state.operator === '+') {
+          console.log('this is it!');
+          if (this.state.prevOperator === '+') {
+            result = num1 + num2
+          }
+          if (this.state.prevOperator === '-') {
+            result = num1 - num2
+          }
+          if (this.state.prevOperator === '*') {
+            result = num1 * num2
+          }
+          if (this.state.prevOperator === '/') {
+            result = num1 / num2
+          }
+          this.setState({
+            dec: false,
+            values: [...this.state.values, result],
+            // amount: result,
+          }, () => {
+            console.log('new values =', this.state.values);
+            
+          })
+        
+            
+        }
+      })
+    }
+    
+    
+    this.setState({
+      operator: e.target.value,
+      dec: false,
+      amount: 0,
+      history: this.state.history + e.target.value,
+      values: [...this.state.values, ...this.state.amount]
+    })
     
   }
   
   handleCalc = (e, previousState) => {
-    console.log(`Calculating!!!`);
     
     this.setState({
       values: [...this.state.values, ...this.state.amount],
