@@ -119,6 +119,10 @@ export default class IndexPage extends Component {
   }
 
   handleOpKey = (e) => {
+    if ( this.state.history === '') {
+      return
+    }
+    
     this.setState({
       prevOperator: this.state.operator
     }, () => {
@@ -129,9 +133,6 @@ export default class IndexPage extends Component {
     console.log(`Smooth Operator ${e.target.value}`);
     if (this.state.values.length + 1  > 1) {
       console.log(this.state.values.length);
-      
-      //let num1 = this.state.values[1] //=== this.state.values.length -1)
-      //let num2 = this.state.values[0] //=== newVal)
 
       this.setState({
         values: [...this.state.values]
@@ -144,11 +145,12 @@ export default class IndexPage extends Component {
         if (this.state.prevOperator === '+') {
           result = num1 + num2
           console.log('result =', result);
-          // this.setState({
-          //   dec: false,
-          //   values: result
-          //   // amount: result,
-          // })
+          this.setState({
+            dec: false,
+            values: result
+            // amount: result,
+          })
+          
         }
         if (this.state.prevOperator === '-') {
           result = num1 - num2
@@ -185,8 +187,9 @@ export default class IndexPage extends Component {
           console.log('new values =', this.state.values);
           
         })
-        
       })
+      
+      // seState here... 
     }
     
     
@@ -202,7 +205,7 @@ export default class IndexPage extends Component {
   
   handleCalc = (e, previousState) => {
     this.setState({
-      values: [...this.state.values, ...this.state.amount],
+      values: [...this.state.values, ...this.state.history],
     }, () => {
       console.log(this.state.values);
       console.log(this.state.values[0]);
