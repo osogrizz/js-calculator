@@ -7,12 +7,14 @@ import styled from 'styled-components'
 const CalcWrapper = styled.div`
   margin: 0 auto;
   padding: 0;
+  margin-top: 100px;
   display: grid;
   width: 326px;
   grid-template-columns: auto;
   justify-content: center;
   box-shadow: 0px 5px 44px 0px rgba(0,0,0,0.8);
   border-radius: 10px;
+  background: #222;
 `
   
 const Keypad = styled.div`
@@ -43,6 +45,7 @@ const CalcDisplay = styled.div`
   justify-content: center;
   text-align: right;
   padding-right: 40px;
+  // background: #222;
 `
 const OpBtn = styled.button`
   background-color: orange;
@@ -65,6 +68,7 @@ const MathView = styled.div`
   color: #777;
   padding-top: 8px;
   height: 35px;
+  // background: #222;
 `
 
 export default class IndexPage extends Component {
@@ -92,11 +96,10 @@ export default class IndexPage extends Component {
   }
 
   handleDecimal = (e) => {
-    
     if (!this.state.dec) {
       console.log(`Decimal!`);
       this.setState({
-        history: this.state.history + e.target.value,
+        history: this.state.history + e.target.value, // eslint-disable-next-line
         amount: this.state.amount += e.target.value,
         dec: true
       })
@@ -105,9 +108,9 @@ export default class IndexPage extends Component {
   }
 
   handleKeyPad = (e) => {
-    console.log(`Numbaaahs! ${e.target.value} `);
+    console.log(`Numbaaahs! ${e.target.value}`);
     this.setState({
-      history: this.state.history + e.target.value,
+      history: this.state.history + e.target.value, // eslint-disable-next-line
       amount: this.state.amount += e.target.value,
     }, () => {
       this.setState({
@@ -116,7 +119,6 @@ export default class IndexPage extends Component {
     })
 
   }
-
 
   handleOpKey = (e) => {
    console.log(`Smooth Operator ${e.target.value}`);
