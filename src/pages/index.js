@@ -92,18 +92,35 @@ export default class IndexPage extends Component {
   }
 
   handleDecimal = (e) => {
-    console.log(`Decimal!`);
+    
+    if (!this.state.dec) {
+      console.log(`Decimal!`);
+      this.setState({
+        history: `${this.state.history}.`
+      }, () => {
+        this.setState({
+          dec: true
+        })
+      })
+    }
     
   }
 
   handleKeyPad = (e) => {
     console.log(`Numbaaahs! ${e.target.value} `);
-    
+    this.setState({
+      history: this.state.history += e.target.value,
+    }, () => {
+      this.setState({
+        amount: this.state.history
+      })
+    })
+
   }
 
 
   handleOpKey = (e) => {
-   console.log(`SMooth Operator ${e.target.value}`);
+   console.log(`Smooth Operator ${e.target.value}`);
     
   }
   
