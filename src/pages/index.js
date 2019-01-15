@@ -109,7 +109,7 @@ export default class IndexPage extends Component {
   handleKeyPad = (e) => {
     console.log(`Numbaaahs! ${e.target.value} `);
     this.setState({
-      history: this.state.history += e.target.value,
+      history: this.state.history + `${e.target.value}`,
     }, () => {
       this.setState({
         amount: this.state.history
