@@ -76,7 +76,7 @@ export default class IndexPage extends Component {
       operator: '',
       history: '',
       dec: false,
-      result: 0,
+
     }
   }
 
@@ -122,16 +122,11 @@ export default class IndexPage extends Component {
               history: slicedHistory + this.state.operator
             })
           })
-
-
     }
     
     if (e.target.value !== this.state.operator) {
       this.setState({
         history:  this.state.history + e.target.value,
-      }, () => {
-        
-        
       })
     }
         
