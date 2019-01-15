@@ -96,11 +96,9 @@ export default class IndexPage extends Component {
     if (!this.state.dec) {
       console.log(`Decimal!`);
       this.setState({
-        history: `${this.state.history}.`
-      }, () => {
-        this.setState({
-          dec: true
-        })
+        history: this.state.history + e.target.value,
+        amount: this.state.amount += e.target.value,
+        dec: true
       })
     }
     
@@ -109,10 +107,11 @@ export default class IndexPage extends Component {
   handleKeyPad = (e) => {
     console.log(`Numbaaahs! ${e.target.value} `);
     this.setState({
-      history: this.state.history + `${e.target.value}`,
+      history: this.state.history + e.target.value,
+      amount: this.state.amount += e.target.value,
     }, () => {
       this.setState({
-        amount: this.state.history
+        amount: this.state.amount.replace(/0?/,'')
       })
     })
 
@@ -121,6 +120,10 @@ export default class IndexPage extends Component {
 
   handleOpKey = (e) => {
    console.log(`Smooth Operator ${e.target.value}`);
+   this.setState({
+     dec: false,
+     amount: 0,
+   })
     
   }
   
