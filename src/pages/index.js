@@ -129,40 +129,63 @@ export default class IndexPage extends Component {
     console.log(`Smooth Operator ${e.target.value}`);
     if (this.state.values.length + 1  > 1) {
       console.log(this.state.values.length);
-      let newVal = this.state.values.reduce((a,b) => a + b)
-      console.log('newVal =', newVal);
-      let num1 = this.state.values[1] === this.state.values.length -1
-      let num2 = this.state.values[0] === newVal
+      
+      //let num1 = this.state.values[1] //=== this.state.values.length -1)
+      //let num2 = this.state.values[0] //=== newVal)
+
       this.setState({
-        values: [num1, num2]
+        values: [...this.state.values]
       }, () => {
+        let num1 = parseFloat(this.state.values[0])
+        let num2 = parseFloat(this.state.values[1])
         let result = 0
         console.log('values =', this.state.values);
-        if (this.state.operator === '+') {
-          console.log('this is it!');
-          if (this.state.prevOperator === '+') {
-            result = num1 + num2
-          }
-          if (this.state.prevOperator === '-') {
-            result = num1 - num2
-          }
-          if (this.state.prevOperator === '*') {
-            result = num1 * num2
-          }
-          if (this.state.prevOperator === '/') {
-            result = num1 / num2
-          }
-          this.setState({
-            dec: false,
-            values: [...this.state.values, result],
-            // amount: result,
-          }, () => {
-            console.log('new values =', this.state.values);
-            
-          })
-        
-            
+
+        if (this.state.prevOperator === '+') {
+          result = num1 + num2
+          console.log('result =', result);
+          // this.setState({
+          //   dec: false,
+          //   values: result
+          //   // amount: result,
+          // })
         }
+        if (this.state.prevOperator === '-') {
+          result = num1 - num2
+          console.log('result =', result);
+          // this.setState({
+          //   dec: false,
+          //   values: result
+          //   // amount: result,
+          // })
+        }
+        if (this.state.prevOperator === '*') {
+          result = num1 * num2
+          console.log('result =', result);
+          // this.setState({
+          //   dec: false,
+          //   values: result
+          //   // amount: result,
+          // })
+        }
+        if (this.state.prevOperator === '/') {
+          result = num1 / num2
+          console.log('result =', result);
+          // this.setState({
+          //   dec: false,
+          //   values: result
+          //   // amount: result,
+          // })
+        }
+        this.setState({
+          // dec: false,
+          // values: [...this.state.values, result],
+          // amount: result,
+        }, () => {
+          console.log('new values =', this.state.values);
+          
+        })
+        
       })
     }
     
@@ -178,7 +201,6 @@ export default class IndexPage extends Component {
   }
   
   handleCalc = (e, previousState) => {
-    
     this.setState({
       values: [...this.state.values, ...this.state.amount],
     }, () => {
