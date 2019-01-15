@@ -123,16 +123,59 @@ export default class IndexPage extends Component {
   handleOpKey = (e) => {
    console.log(`Smooth Operator ${e.target.value}`);
    this.setState({
+     operator: e.target.value,
      dec: false,
      amount: 0,
+     history: this.state.history + e.target.value,
+     values: [...this.state.values, ...this.state.amount]
    })
     
   }
   
   handleCalc = (e, previousState) => {
     console.log(`Calculating!!!`);
-  }
+    
+    
+    
+    
+    
+    this.setState({
+      values: [...this.state.values, ...this.state.amount],
+    }, () => {
+      console.log(this.state.values);
+      console.log(this.state.values[0]);
+      console.log(this.state.values[1]);
+      let num1 = parseFloat(this.state.values[0])
+      let num2 = parseFloat(this.state.values[1])
+      let result = 0
 
+      if ( this.state.operator  === '+'  ) {
+        console.log('Add');
+        result = num1 + num2
+      } 
+      if (this.state.operator === '-') {
+        result = num1 - num2
+      }
+      if (this.state.operator === '*') {
+        result = num1 * num2
+      }
+      if (this.state.operator === '/') {
+        result = num1 / num2
+      }
+      
+      this.setState({
+        dec: false,
+        amount: result,
+        values: [],
+        values: [this.state.values, ...this.state.amount]
+      }, () => {
+        this.setState({
+          
+        })
+      })
+    })
+  }
+  
 
   render() {
     return (
