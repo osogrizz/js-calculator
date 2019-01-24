@@ -76,10 +76,11 @@ export default class IndexPage extends Component {
     super(props)
 
     this.state = {
-      amount: 0,
+      amount: "0",
       values: [],
       prevOperator: '',
       operator: '',
+      op: false,
       history: '',
       dec: false,
     }
@@ -90,6 +91,7 @@ export default class IndexPage extends Component {
       amount: 0,
       values: [],
       operator: '',
+      op: false,
       history: '',
       dec: false
     })
@@ -104,7 +106,6 @@ export default class IndexPage extends Component {
         dec: true
       })
     }
-    
   }
 
   handleKeyPad = (e) => {
@@ -117,33 +118,101 @@ export default class IndexPage extends Component {
         amount: this.state.amount.replace(/0?/,'')
       })
     })
-
   }
 
   handleOpKey = (e) => {
-    if ( this.state.history === '') {
-      return
+    const{ history } = this.state
+    // if ( history === '') {
+    //   return
+    // } else {
+    //   this.setState({
+    //     op: true
+    //   })
+    // }
+    
+    console.log(history[history.length -2])
+    let slicedHistory = history.substr(0, history.length -2)
+
+    if ( history[history.length -2] === '+' ||
+         history[history.length -2] === '-' ||
+         history[history.length -2] === '*' ||
+         history[history.length -2] === '/' ) {
+
+      this.setState({
+        operator: e.target.value,
+        history: this.state.history
+      }, () => {
+        this.setState({
+          history: slicedHistory + this.state.operator + ' '
+        })
+      })
     }
+
+  
     
     this.setState({
-      operator: e.target.value,
       dec: false,
       amount: 0,
-      history: this.state.history + ' ' + e.target.value + ' ',
+      history: history + ' ' + e.target.value + ' ',
     })
-    
   }
   
   handleCalc = (e, previousState) => {
 
     let copy = this.state.history.split(' ')
-    copy.map( item => this.state.values.push(item))
+    // copy.map( item => this.state.values.push(item))
     console.log('copy =', copy);
-    console.log('values =', this.state.values);
+    // console.log('values =', this.state.values);
+
+    let result = 0
+
+
+    for (let i = 0; i < copy.length; i++) {
+      let num1 = copy[i - 1]
+      let num2 = copy[i + 1]
+      if (copy[i] === '/') {
+        result = parseFloat(num1) / parseFloat(num2)
+        copy.splice(copy[i]- 2, 3, result)
+        console.log('result copy =', copy)
+
+      }
+    }
+    for (let i = 0; i < copy.length; i++) {
+      let num1 = copy[i - 1]
+      let num2 = copy[i + 1]
+      if (copy[i] === '*') {
+        result = parseFloat(num1) * parseFloat(num2)
+        copy.splice(copy[i] - 2, 3, result)
+        console.log('result copy =', copy)
+
+      }
+    }
+    for (let i = 0; i < copy.length; i++) {
+      let num1 = copy[i - 1]
+      let num2 = copy[i + 1]
+      if (copy[i] === '+') {
+        result = parseFloat(num1) + parseFloat(num2)
+        copy.splice(copy[i] - 2, 3, result)
+        console.log('result copy =', copy)
+
+      }
+    }
+    for (let i = 0; i < copy.length; i++) {
+      let num1 = copy[i - 1]
+      let num2 = copy[i + 1]
+      if (copy[i] === '-') {
+        result = parseFloat(num1) - parseFloat(num2)
+        copy.splice(copy[i] - 2, 3, result)
+        console.log('result copy =', copy)
+
+      }
+    }
+
     
     this.setState({
       dec: false,
       values: [],
+      amount: result
     })
     
   }
