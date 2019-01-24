@@ -122,15 +122,15 @@ export default class IndexPage extends Component {
 
   handleOpKey = (e) => {
     const{ history } = this.state
-    // if ( history === '') {
-    //   return
-    // } else {
-    //   this.setState({
-    //     op: true
-    //   })
-    // }
+    if ( history === '') {
+      return
+    } else {
+      this.setState({
+        op: true
+      })
+    }
     
-    console.log(history[history.length -2])
+
     let slicedHistory = history.substr(0, history.length -2)
 
     if ( history[history.length -2] === '+' ||
@@ -147,8 +147,6 @@ export default class IndexPage extends Component {
         })
       })
     }
-
-  
     
     this.setState({
       dec: false,
@@ -212,7 +210,8 @@ export default class IndexPage extends Component {
     this.setState({
       dec: false,
       values: [],
-      amount: result
+      amount: result,
+      history: copy.toString()
     })
     
   }
